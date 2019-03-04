@@ -32,20 +32,17 @@
   }
 
   var ryu = new Character("Ryu", false, 20, 6, 3, false);
-  var ken = new Character("Ken", false, 20, 6, 4, false);
-  var eHonda = new Character("E. Honda", false, 20, 6, 6, false);
-  var guile = new Character("Guile", false, 20, 6, 6, false);
-  var chunLi = new Character("Chun-Li", false, 20, 6, 6, false);
   var blanka = new Character("Blanka", false, 20, 6, 6, false);
-  var zangief = new Character("Zangief", false, 20, 6, 6, false);
-  var dhalsim = new Character("Dhalsim", false, 20, 6, 6, false);
-  var balrog = new Character("Balrog", false, 20, 6, 6, false);
-  var vega = new Character("Vega", false, 20, 6, 6, false);
-  var sagat = new Character("Sagat", false, 20, 6, 6, false);
+  var guile = new Character("Guile", false, 20, 6, 6, false);
+  var ken = new Character("Ken", false, 20, 6, 4, false);
   var mBison = new Character("M. Bison", false, 20, 6, 6, false);
+  var chunLi = new Character("Chun-Li", false, 20, 6, 6, false);
+  var zangief = new Character("Zangief", false, 20, 6, 6, false);
+  var balrog = new Character("Balrog", false, 20, 6, 6, false);
+  var sagat = new Character("Sagat", false, 20, 6, 6, false);
 
   var fightArray = [];
-  var charArray = [ryu, ken, eHonda, guile, chunLi, blanka, zangief, dhalsim, balrog, vega, sagat, mBison];
+  var charArray = [ryu, blanka, guile, ken, mBison, chunLi, zangief, balrog, sagat];
 
   function createCharacterList() {
     for (var i = 0; i < charArray.length; i++) {
