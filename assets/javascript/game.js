@@ -1,6 +1,4 @@
 (function () {
-  var wins = 0;
-  var losses = 0;
   var gameInit = false;
 
   function Character(name, played, player, healthPoints, attackPoints, counterAttack, defeated) {
