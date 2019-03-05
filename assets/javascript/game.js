@@ -3,43 +3,46 @@
   var losses = 0;
   var gameInit = false;
 
-  function Character(name, isPlayer, healthPoints, attackPoints, counterAttack, defeated) {
+  function Character(name, played, player, healthPoints, attackPoints, counterAttack, defeated) {
     this.name = name;
-    this.isPlayer = isPlayer;
+    this.played = played;
+    this.player = player;
     this.healthPoints = healthPoints;
     this.attackPoints = attackPoints
     this.counterAttack = counterAttack;
     this.defeated = defeated;
 
     this.attackPower = function () {
-      this.attackPoints += this.attackPoints
+      this.attackPoints += 6;
     }
 
     this.attack = function (opponent) {
-      this.healthPoints = this.healthPoints - opponent.counterAttack;
-      opponent.healthPoints = opponent.healthPoints - this.attackPoints;
-
-      console.log(this.healthPoints)
-      console.log(opponent.healthPoints)
+      this.healthPoints -= opponent.counterAttack;
+      opponent.healthPoints -= this.attackPoints;
     }
 
     this.check = function () {
       if (this.healthPoints <= 0) {
         this.defeated = true;
-        alert("defeated")
+        $("#opponent").empty();
+        fightArray.pop();
       }
+      if (this.player && this.defeated) {
+        console.log(fightArray)
+        endGame();
+      };
     }
   }
 
-  var ryu = new Character("Ryu", false, 20, 6, 3, false);
-  var blanka = new Character("Blanka", false, 20, 6, 6, false);
-  var guile = new Character("Guile", false, 20, 6, 6, false);
-  var ken = new Character("Ken", false, 20, 6, 4, false);
-  var mBison = new Character("M. Bison", false, 20, 6, 6, false);
-  var chunLi = new Character("Chun-Li", false, 20, 6, 6, false);
-  var zangief = new Character("Zangief", false, 20, 6, 6, false);
-  var balrog = new Character("Balrog", false, 20, 6, 6, false);
-  var sagat = new Character("Sagat", false, 20, 6, 6, false);
+  var ryu = new Character("Ryu", false, false, 130, 6, 6, false);
+  var blanka = new Character("Blanka", false, false, 200, 10, 10, false);
+  var guile = new Character("Guile", false, false, 100, 6, 4, false);
+  var ken = new Character("Ken", false, false, 130, 6, 6, false);
+  var mBison = new Character("M. Bison", false, false, 100, 6, 6, false);
+  var chunLi = new Character("Chun-Li", false, false, 100, 6, 2, false);
+  var zangief = new Character("Zangief", false, false, 80, 8, 10, false);
+  var balrog = new Character("Balrog", false, false, 80, 6, 3, false);
+  var sagat = new Character("Sagat", false, false, 80, 6, 4, false);
 
   var fightArray = [];
   var charArray = [ryu, blanka, guile, ken, mBison, chunLi, zangief, balrog, sagat];
@@ -48,28 +51,53 @@
     for (var i = 0; i < charArray.length; i++) {
       var char = $("<img>")
       char.addClass("character").attr("data-char-index", i);
-      char.text();
-      char.attr("src", "assets/images/" + charArray[i].name + ".gif");
+      char.attr("src", `assets/images/${charArray[i].name}.jpg`);
       $("#character-list").append(char);
     }
   };
 
-  function chooseCharacter() {
-    $(".character").on("click", function () {
+  function showStats() {
+    $(".character").mouseenter(function () {
       var char = $(this).attr("data-char-index");
-      char = parseInt(char);
+      char = charArray[parseInt(char)];
 
       if (!gameInit) {
-        charArray[char].isPlayer = true;
-        console.log(charArray[char]);
-        fight(char);
-        showCharacter(this, "#player");
-        gameInit = true;
+        printStats(char, "#stats-0")
       } else {
-        console.log(charArray[char]);
-        fight(char);
-        showCharacter(this, "#opponent");
+        printStats(char, "#stats-1")
       }
+    });
+
+    $(".character").mouseleave(function () {
+      $("#stats-0, #stats-1").empty();
+    });
+  };
+
+  function chooseCharacter() {
+    $(".character").click(function () {
+
+      var index = $(this).attr("data-char-index");
+      index = parseInt(index);
+      var character = charArray[index];
+
+      if (!character.played && fightArray.length !== 2) {
+        character.played = true;
+        fight(character);
+
+        if (!gameInit) {
+          showCharacter(this, "#player");
+          $("#player-name").text(character.name);
+          character.player = true;
+          gameInit = true;
+        } else {
+          updateHealth(character, "#hp-1");
+          showCharacter(this, "#opponent");
+          $("#opponent-name").text(character.name);
+        }
+        $(this).addClass("disabled")
+        console.log(fightArray);
+      }
+
     });
   };
 
@@ -79,47 +107,44 @@
 
     player.attack(opponent);
     player.check();
+    updateHealth(player, "#hp-0");
     opponent.check();
+    updateHealth(opponent, "#hp-1");
     player.attackPower();
-
-    defeated();
-
-    console.log("attack")
-    console.log(fightArray)
-
   });
 
-  function defeated() {
-    if (opponent.defeated) {
-      $("#opponent").fadeOut();
-      fightArray.pop[1];
-    } else if (player.defeated) {
-      $("#player").fadeOut();
-    }
-
-  };
-
-  function nextOpponent() {
-
-  };
-
   function showCharacter(char, el) {
-    $(el).append(char);
+    $(el).empty();
+    $(char).clone().animate({ height: "130px", width: "130px" }).appendTo(el);
+  };
+
+  function updateHealth(char, el) {
+    var healthBar = $(el).attr("style", "width:" + char.healthPoints + "%");
+    if (char.healthPoints === undefined) {
+      $(el).attr("style", "width: 100%");
+    } else {
+      return healthBar;
+    }
   };
 
   function fight(char) {
     if (!gameInit) {
-      fightArray[0] = charArray[char];
+      fightArray[0] = char;
     } else {
-      fightArray[1] = charArray[char];
+      fightArray[1] = char;
     }
   };
 
-  function endGame() {
-    alert("end")
+  function printStats(char, el) {
+    $(el).html(`<p>${char.name} <br> HP:${char.healthPoints} <br>Attack: ${char.attackPoints} <br>Counter Attack: ${char.counterAttack}</p>`)
+  };
 
+  function endGame() {
+    $("#player").fadeOut();
+    $("#end").text("Game Over");
   };
   createCharacterList();
+  showStats();
   chooseCharacter();
 
 })();

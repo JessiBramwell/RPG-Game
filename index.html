@@ -19,11 +19,13 @@
 	<div class="container">
 
 		<!-- player-select -->
-		<div class="row justify-content-center">
-			<div class="col-6" id="player-select">
-				<h2>Player Select</h2>
+		<div class="row justify-content-center align-items-end">
+			<div id="stats-0" class="col-3"></div>
+			<div class="col-4" id="player-select">
+				<h2 id="end">Player Select</h2>
 				<div class="d-flex flex-wrap" id="character-list"></div>
 			</div>
+			<div id="stats-1" class="col-3"></div>
 		</div>
 
 		<!-- defender area -->
@@ -31,27 +33,26 @@
 
 			<div id="p-0" class="defender col-5">
 				<div id="player-hp"></div>
-				<h2>1P <span id="p-0-hp"></span></h2>
+				<h2>1P</h2>
 				<div class="progress">
-					<div id="opponent-hp" class="progress-bar bg-danger" role="progressbar" style="width: 100%"
-						aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+					<div id="hp-0" class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100"
+						aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
-				<h3>Character Name</h3>
+				<h3 id="player-name"></h3>
 				<div id="player"></div>
 			</div>
 
 			<div id="fight" class="col-2 d-flex flex-column">
-				<!-- fight message before round -->
 				<button class="mt-auto" id="attack">Attack</button>
 			</div>
 
-			<div id="p-1" class="defender col-5 d-flex flex-column">
+			<div id="p-1" class="defender col-5">
 				<h2>2P</h2>
 				<div class="progress">
-					<div id="opponent-hp" class="progress-bar bg-danger" role="progressbar" style="width: 100%"
-						aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+					<div id="hp-1" class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100"
+						aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
-				<h3>Character Name</h3>
+				<h3 id="opponent-name"></h3>
 				<div id="opponent"></div>
 			</div>
 

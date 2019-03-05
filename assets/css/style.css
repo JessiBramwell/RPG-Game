@@ -1,34 +1,50 @@
 body {
   font-family: 'Merriweather', serif;
   background-color: #a9a9a9;
+  background-image: linear-gradient(to right bottom, rgba(20, 20, 20, 0.8), rgba(60, 60, 60, 0.8)), url(../images/street-fighter.png);
+  background-size: cover;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-h2 {
+h2,
+h3 {
   text-transform: uppercase;
-  font-size: 2.5rem;
-  word-spacing: 3rem;
+  /* font-size: 2.5rem; */
+  word-spacing: 2rem;
   color: #efefef;
   text-shadow: 2px 2px 2px #444;
+}
+#player-select {
+  margin-top: 4rem;
 }
 #player-select h2 {
   text-align: center;
 }
+#stats-0,
+#stats-1 {
+  background-color: rgba(255, 255, 255, 0.7);
+}
 .character {
-    background-color: teal;
     border: 5px solid #000; 
     width: 33%;    
-    height: 165px;;
+    height: 33%;
 }
-
+#player-name,
+#opponent-name {
+  margin-top: 2.5rem;
+}
 #p-0 img {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
 }
-#p-0 h3 {
-  
+#p-1 {
+  text-align: end;
 }
 #p-1 img {
   background-color: blueviolet;
   float: right
 }
-
-/* header gradients */
+.disabled {
+  opacity: .5;
+}
