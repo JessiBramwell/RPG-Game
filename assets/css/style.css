@@ -7,6 +7,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
+.btn-wrapper {
+  margin-top: 4rem;
+}
 h2,
 h3 {
   text-transform: uppercase;
@@ -28,8 +31,7 @@ h3 {
     width: 33%;    
     height: 33%;
 }
-#player-name,
-#opponent-name {
+.name {
   margin-top: 2.5rem;
 }
 #p-0 img {
@@ -45,4 +47,7 @@ h3 {
 }
 .disabled {
   opacity: .5;
+}
+#play {
+  display: none;
 }
